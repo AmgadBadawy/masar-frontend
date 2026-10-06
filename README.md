@@ -143,38 +143,68 @@ The interface is designed to work across:
 
 ---
 
-# 🏗️ Architecture
+## 🏗️ Full-Stack Architecture
 
-Masar follows a separated frontend/backend architecture.
+Masar is built as a separate frontend and backend architecture.
 
 ```text
-                         ┌───────────────┐
-                         │     User      │
-                         └───────┬───────┘
-                                 │
-                                 ▼
-                     ┌─────────────────────┐
-                     │      Next.js        │
-                     │   React Frontend    │
-                     └──────────┬──────────┘
-                                │
-                                │ REST API
-                                ▼
-                     ┌─────────────────────┐
-                     │       Strapi        │
-                     │     Headless CMS     │
-                     └──────────┬──────────┘
-                                │
-                                ▼
-                     ┌─────────────────────┐
-                     │     PostgreSQL      │
-                     │      Database       │
-                     └─────────────────────┘
+                         MASAR
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+              ▼                         ▼
+     ┌─────────────────┐       ┌─────────────────┐
+     │     Frontend    │       │     Backend     │
+     │     Next.js     │◄─────►│     Strapi      │
+     │     React       │ REST  │     REST API    │
+     └─────────────────┘ API   └────────┬────────┘
+                                        │
+                                        ▼
+                               ┌─────────────────┐
+                               │   PostgreSQL    │
+                               │    Database     │
+                               └─────────────────┘
 ```
 
-The frontend never communicates directly with PostgreSQL.
+### Project Repositories
 
-Instead, Strapi manages the application data and exposes it through its REST API.
+| Part     | Technology                   | Repository                                                      |
+| -------- | ---------------------------- | --------------------------------------------------------------- |
+| Frontend | Next.js / React / TypeScript | [Masar Frontend](https://github.com/AmgadBadawy/masar-frontend) |
+| Backend  | Strapi / Node.js             | [Masar Backend](https://github.com/AmgadBadawy/Masar-backend)   |
+| Database | PostgreSQL                   | Managed by the backend                                          |
+
+### Data Flow
+
+```text
+User
+  ↓
+Next.js Frontend
+  ↓
+REST API
+  ↓
+Strapi Backend
+  ↓
+PostgreSQL
+  ↓
+JSON Response
+  ↓
+Next.js UI
+```
+
+The frontend is responsible for the user experience, navigation, search, filtering, service presentation, favorites, responsive design, and Arabic RTL interface.
+
+The backend provides the content management system, structured service data, categories, relationships, and REST API consumed by the frontend.
+
+### Related Repository
+
+The backend source code is available here:
+
+[Masar Backend](https://github.com/AmgadBadawy/Masar-backend)
+
+### Live Project
+
+[Open Masar](https://masar-frontend-ten.vercel.app/)
 
 ---
 
